@@ -12,7 +12,7 @@ local function run_once(cmd)
   awful.spawn.with_shell(string.format('pgrep -u $USER -x %s > /dev/null || (%s)', findme, cmd))
 end
 
-for _, app in ipairs(apps.run_on_start_up) do
+for _, app in ipairs(apps) do
   run_once(app)
 end
 

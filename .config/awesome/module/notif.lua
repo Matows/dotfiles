@@ -20,6 +20,9 @@ naughty.config.defaults.icon_size = dpi(32)
 naughty.config.defaults.hover_timeout = nil
 
 -- Error handling
+
+-- Check if awesome encountered an error during startup and fell back to
+-- another config (This code will only ever execute for the fallback config)
 if _G.awesome.startup_errors then
   naughty.notify(
     {
@@ -30,6 +33,7 @@ if _G.awesome.startup_errors then
   )
 end
 
+-- Handle runtime errors after startup
 do
   local in_error = false
   _G.awesome.connect_signal(
