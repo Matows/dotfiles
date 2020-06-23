@@ -20,6 +20,10 @@ local screenshot = require("screenshot")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+-- Init
+--require('module.auto-start')
+require('module.notif')
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -87,10 +91,9 @@ awful.layout.layouts = {
 -- Create a launcher widget and a main menu
 myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
    { "quit", function() awesome.quit() end },
+   { "hibernate", function() awful.spawn("systemctl hibernate") end },
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
@@ -332,20 +335,20 @@ globalkeys = gears.table.join(
               {description = "show the menubar", group = "launcher"}),
     -- Screenshots
     awful.key({ }, "Print", scrot_full,
-        {description = "Take a screenshot of entire screen", group = "screenshot"}),
+        {description = "take a screenshot of entire screen", group = "screenshot"}),
     awful.key({ modkey, }, "Print", scrot_selection,
-        {description = "Take a screenshot of selection", group = "screenshot"}),
+        {description = "take a screenshot of selection", group = "screenshot"}),
     awful.key({ "Shift" }, "Print", scrot_window,
-        {description = "Take a screenshot of focused window", group = "screenshot"}),
+        {description = "take a screenshot of focused window", group = "screenshot"}),
     awful.key({ "Ctrl" }, "Print", scrot_delay,
-        {description = "Take a screenshot of delay", group = "screenshot"}),
+        {description = "take a screenshot of delay", group = "screenshot"}),
 
     -- Volume mixer
     awful.key({ modkey }, "v", 
         function()
             awful.spawn(terminal .. " --class temporary -e ncpamixer")
         end, 
-        {description = "Open volume mixer", group = "launcher"}
+        {description = "open volume mixer", group = "launcher"}
     )
 )
 
@@ -586,7 +589,9 @@ end)
 
 -- Titlebars only on floating windows
 client.connect_signal("property::floating", function(c)
-  if c.floating and not awful.rules.match(c, {instance = 'temporary'}) then
+  if c.floating
+      and not awful.rules.match(c, {instance = 'temporary'})
+      and not (c.maximized or c.maximized_horizontal or c.maximized_vertical or c.fullscreen) then
       awful.titlebar.show(c)
   else
       awful.titlebar.hide(c)
@@ -626,8 +631,4 @@ tag.connect_signal("property::layout", function(t)
         beautiful.useless_gap = 5
     end
 end)
-
--- Autorun on awesome startup
-awful.spawn.with_shell("~/.config/awesome/autorun.sh")
---awful.spawn.with_shell('xautolock -detectsleep -notify 5 -notifier "xset dpms force off" -time 20 -locker "slock" -killtime 20 -killer "systemctl suspend"')
 
