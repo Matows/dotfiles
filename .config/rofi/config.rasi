@@ -1,9 +1,12 @@
 configuration {
     modi: "window,drun,ssh,combi";
+    combi-modi: "window,drun,ssh";
     theme: "gruvbox-dark-soft";
     font: "Roboto 10";
     columns: 2;
+    width: 40;
     show-icons: true;
     icon-theme: "Papirus";
-    combi-modi: "window,drun,ssh";
- }
+    drun-display-format: "{name} [<span weight='light' size='small'>({generic})</span>]";
+    display-drun: "Application";
+}

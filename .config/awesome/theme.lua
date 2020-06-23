@@ -1,7 +1,3 @@
----------------------------
--- Default awesome theme --
----------------------------
-
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -13,21 +9,21 @@ local theme = {}
 
 theme.font          = "sans 8"
 
-theme.bg_normal     = "#2e3440"
-theme.bg_focus      = "#d8dee9"
+theme.bg_normal     = "#282828"
+theme.bg_focus      = "#d79921"
 theme.bg_urgent     = "#bf616a"
 theme.bg_minimize   = "#434c5e"
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "#eceff4"
-theme.fg_focus      = "#2e3440"
+theme.fg_focus      = "#eceff4" -- Same as long as bg_focus is a bright color
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#d8dee9"
 
 theme.useless_gap   = dpi(5)
 theme.border_width  = dpi(2)
-theme.border_normal = "#5e81ac"
-theme.border_focus  = "#eceff4"
+theme.border_normal = theme.bg_normal --"#282828"
+theme.border_focus  = theme.bg_focus --"#eceff4"
 theme.border_marked = "#91231c"
 
 -- There are other variable sets
