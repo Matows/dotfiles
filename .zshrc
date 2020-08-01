@@ -50,7 +50,7 @@ setopt appendhistory
 #############
 ## ALIASES ##
 #############
-alias ls='ls --color=always'
+alias ls='ls --color=auto'
 alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias ll='ls -l'
 alias la='ls -A'
