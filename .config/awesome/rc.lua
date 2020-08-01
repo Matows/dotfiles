@@ -43,11 +43,11 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.fair,
-    -- awful.layout.suit.fair.horizontal,
     awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.bottom,
+    awful.layout.suit.fair,
+    -- awful.layout.suit.fair.horizontal,
     awful.layout.suit.tile.top,
     -- awful.layout.suit.floating,
     -- awful.layout.suit.spiral,
@@ -173,11 +173,38 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytasklist = awful.widget.tasklist {
         screen  = s,
         filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
+        buttons = tasklist_buttons,
+        layout   = {
+            spacing = 1,
+            layout  = wibox.layout.fixed.horizontal
+        },
+        -- Notice that there is *NO* wibox.wibox prefix, it is a template,
+        -- not a widget instance.
+        widget_template = {
+            {
+                wibox.widget.base.make_widget(),
+                forced_height = 2,
+                id            = 'background_role',
+                widget        = wibox.container.background,
+            },
+            {
+                {
+                    id     = 'clienticon',
+                    widget = awful.widget.clienticon,
+                },
+                margins = 2.5,
+                widget  = wibox.container.margin
+            },
+            nil,
+            create_callback = function(self, c, index, objects) --luacheck: no unused args
+                self:get_children_by_id('clienticon')[1].client = c
+            end,
+            layout = wibox.layout.align.vertical,
+        },
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 25 }) --, bg = "#77777799"})
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -259,8 +286,20 @@ globalkeys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    --awful.key({ modkey, "Shift"   }, "q", awesome.quit,
-              --{description = "quit awesome", group = "awesome"}),
+    awful.key({ modkey, "Shift"   }, "q", 
+        function ()
+            awful.prompt.run {
+                prompt = '<b>Close AwesomWM? (y/N) </b>',
+                bg_cursor = '#ffffff',
+                textbox = mouse.screen.mypromptbox.widget,
+                exe_callback = function(answer)
+                    if answer:lower() == "y" or answer:lower() == "yes" then
+                        awesome.quit()
+                    end
+                end
+            }
+        end,
+        {description = "quit awesome", group = "awesome"}),
 
     awful.key({ modkey,           }, "Right",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
@@ -292,7 +331,7 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () awful.spawn("rofi -show drun") end,
+    awful.key({ modkey, "Shift" }, "Return", function () awful.spawn("rofi -show drun") end,
               {description = "run rofi", group = "launcher"}),
 
     awful.key({ modkey }, "x",
@@ -306,8 +345,8 @@ globalkeys = gears.table.join(
               end,
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
+    --awful.key({ modkey }, "p", function() menubar.show() end,
+              --{description = "show the menubar", group = "launcher"}),
     -- Screenshots
     awful.key({ }, "Print", scrot_full,
         {description = "take a screenshot of entire screen", group = "screenshot"}),
