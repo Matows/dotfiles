@@ -40,12 +40,13 @@ colors:
         cyan:    '0x8ec07c'
         white:   '0xebdbb2'
 
-dynamic_title: true
+window:
+    dynamic_title: true
 
 scrolling:
     history: 50000
 
-visual_bell:
+bell:
     animation: Ease
     duration: 70
     color: '0xfbf1c7'
