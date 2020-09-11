@@ -37,7 +37,8 @@ promptinit
 ## KEYBINDING ##
 ################
 bindkey '^[[3~' delete-char
-bindkey '^[[Z' reverse-menu-complete
+bindkey '^[[Z'  reverse-menu-complete
+bindkey '^V'    push-line
 
 #############
 ## HISTORY ##
