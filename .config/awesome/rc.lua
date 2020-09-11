@@ -53,7 +53,7 @@ awful.layout.layouts = {
     -- awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    -- awful.layout.suit.max.fullscreen,
+    awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier,
     -- awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
@@ -68,7 +68,10 @@ myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
    { "restart", awesome.restart },
    { "quit", function() awesome.quit() end },
-   { "hibernate", function() awful.spawn("systemctl hibernate") end },
+   { "lock", function() awful.spawn("slock") end },
+   { "suspend", function() awful.spawn("slock && systemctl suspend-then-hibernate") end },
+   { "hibernate", function() awful.spawn("slock && systemctl hibernate") end },
+   { "poweroff", function() awful.spawn("systemctl poweroff") end },
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },

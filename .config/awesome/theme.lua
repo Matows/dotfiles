@@ -7,7 +7,7 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.wallpaper = "~/.config/awesome/backgrounds/foret_flat.jpg"
+theme.wallpaper = "~/.config/awesome/backgrounds/background"
 
 theme.font          = "sans 8"
 
