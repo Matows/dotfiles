@@ -10,3 +10,9 @@ configuration {
     drun-display-format: "{name} [<span weight='light' size='small'>({generic})</span>]";
     display-drun: "Application";
 }
+
+element-icon { size: 2ch; }
+
+window {
+    border-color: #d79921;
+}
