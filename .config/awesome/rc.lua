@@ -68,10 +68,10 @@ myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
    { "restart", awesome.restart },
    { "quit", function() awesome.quit() end },
-   { "lock", function() awful.spawn("slock") end },
-   { "suspend", function() awful.spawn("slock && systemctl suspend-then-hibernate") end },
-   { "hibernate", function() awful.spawn("slock && systemctl hibernate") end },
-   { "poweroff", function() awful.spawn("systemctl poweroff") end },
+   { "lock", function() awful.spawn("xautolock -locknow") end },
+   { "suspend", function() awful.spawn("slock systemctl suspend-then-hibernate -i") end },
+   { "hibernate", function() awful.spawn("slock systemctl hibernate -i") end },
+   { "poweroff", function() awful.spawn("slock systemctl poweroff -i") end },
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
