@@ -58,6 +58,7 @@ alias la='ls -A'
 alias lla='ls -lA'
 alias vim='nvim'
 alias ssh='TERM=xterm-color; ssh'
+alias hibernate='slock systemctl hibernate -i'
 
 #############
 ## SCRIPTS ##
