@@ -1,2 +1,3 @@
 .ssh/key_*
+.ssh/config
 
