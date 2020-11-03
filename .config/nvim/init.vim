@@ -1,7 +1,7 @@
-"  _      _ _        _         __    _
-" (_)_ _ (_) |_ __ _(_)_ __   / /_ _(_)_ __  _ _ __
-" | | ' \| |  _|\ V / | '  \ / /\ V / | '  \| '_/ _|
-" |_|_||_|_|\__(_)_/|_|_|_|_/_(_)\_/|_|_|_|_|_| \__|
+"  _      _ _        _
+" (_)_ _ (_) |_ __ _(_)_ __
+" | | ' \| |  _|\ V / | '  \
+" |_|_||_|_|\__(_)_/|_|_|_|_|
 "
 
 
@@ -9,16 +9,12 @@
 """"PLUGIN""""
 """"""""""""""
 
-let g:VIMPLUGSCRIPT = has('nvim') ? "~/.local/share/nvim/site/autoload/plug.vim" : "~/.vim/autoload/plug.vim"
-
-if empty(glob(VIMPLUGSCRIPT))
+if empty(glob("~/.local/share/nvim/site/autoload/plug.vim"))
     silent execute "curl -fLo " . VIMPLUGSCRIPT . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-let g:VIMPLUGDIR = has('nvim') ? "~/.local/share/nvim/plugged" : "~/.vim/plugged"
-
-call plug#begin(VIMPLUGDIR)
+call plug#begin("~/.local/share/nvim/plugged")
 " Themes
 " gruvbox8 is a gruvbox evolution
 Plug 'lifepillar/vim-gruvbox8'
@@ -29,9 +25,9 @@ Plug 'junegunn/goyo.vim' " Distract-free mode
 Plug 'junegunn/limelight.vim' " Focus on current block
 
 " Tools
-Plug 'junegunn/vim-easy-align' " Explicit, right?
+Plug 'junegunn/vim-easy-align' " Explicit, right? EDIT : Actually, no so TODO: comment.
 Plug 'farmergreg/vim-lastplace' " Go to last position in file
-Plug 'gko/vim-coloresque'
+Plug 'gko/vim-coloresque' " TODO: same as vim-easy-align
 call plug#end()
 
 """"""""""""
@@ -48,7 +44,7 @@ autocmd FileType python let python_highlight_all = 1
 """"""""""""""""""""""
 
 "set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,eol:¤,precedes:«,extends:»
-set listchars=tab:→\ ,space:\ ,nbsp:␣,trail:•,eol:¤,precedes:«,extends:»
+set listchars=tab:→\ ,nbsp:␣,trail:•,eol:¤,precedes:«,extends:»
 set list
 
 
@@ -66,17 +62,17 @@ let g:lightline = {
       \ }
 "let g:limelight_conceal_ctermfg = 'white'
 
-"" Center active line
-"""""""""""""""""""""
-set scrolloff=0
-
-
 """""""""""""""""
 """"BEHAVIOUR""""
 """""""""""""""""
 
-" Allow to use mouse
+"" Allow to use mouse
+"""""""""""""""""""""
 set mouse=a
+
+"" Scroll when active line is X lines away from buffer top/bottom
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set scrolloff=10
 
 "" Number
 """""""""
